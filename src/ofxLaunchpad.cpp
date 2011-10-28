@@ -59,17 +59,17 @@ void ofxLaunchpad::setMappingMode(MappingMode mappingMode) {
 	midiOut.sendControlChange(1, 0, mappingMode == XY_MAPPING_MODE ? 1 : 2);
 }
 
-void ofxLaunchpad::setLedAutomap(int col, int red, int green, bool clear, bool copy) {
+void ofxLaunchpad::setLedAutomap(int col, ofxLaunchpadColor color) {
 	int key = automapBegin + col;
-	midiOut.sendControlChange(1, key, ofxLaunchpadColor(red, green, clear, copy));
+	midiOut.sendControlChange(1, key, color);
 }
 
-void ofxLaunchpad::setLedGrid(int col, int row, int red, int green, bool clear, bool copy) {
+void ofxLaunchpad::setLedGrid(int col, int row, ofxLaunchpadColor color) {
 	if(row == -1) {
-		setLedAutomap(col, red, green, clear, copy);
+		setLedAutomap(col, color);
 	}
 	int key = ((row & rowMask) << 4) | ((col & colMask) << 0);
-	midiOut.sendNoteOn(1, key, ofxLaunchpadColor(red, green, clear, copy));
+	midiOut.sendNoteOn(1, key, color);
 }
 
 void ofxLaunchpad::set(ofPixels& pix, bool clear, bool copy) {

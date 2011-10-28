@@ -10,5 +10,5 @@ void ofxLaunchpadToggle::setup(int port, ofxLaunchpadListener* listener) {
 }
 
 void ofxLaunchpadToggle::launchpadEvent(int col, int row, int pressed) {
-	setLedGrid(col, row, 3, 0);
+	setLedGrid(col, row, ofxLaunchpadColor(3, 0));
 }

@@ -38,8 +38,8 @@ public:
 	void setBufferingMode(bool copy, bool flash, int update, int display); // also resets the flash timer
 	void setAll(BrightnessMode brightnessMode = OFF_BRIGHTNESS_MODE); // resets all other data
 	void setDutyCycle(int numerator, int denominator);
-	void setLedAutomap(int col, int red, int green, bool clear = true, bool copy = true);
-	void setLedGrid(int col, int row, int red, int green, bool clear = true, bool copy = true);
+	void setLedAutomap(int col, ofxLaunchpadColor color);
+	void setLedGrid(int col, int row, ofxLaunchpadColor color);
 	
 	void newMidiMessage(ofxMidiEventArgs& args);
 	ofEvent<ButtonEvent> automapButtonEvent, gridButtonEvent;
