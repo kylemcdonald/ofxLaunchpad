@@ -28,8 +28,9 @@ public:
 	void setBufferingMode(bool copy, bool flash, int update, int display); // also resets the flash timer
 	void setAll(BrightnessMode brightnessMode = OFF_BRIGHTNESS_MODE); // resets all other data
 	void setDutyCycle(int numerator, int denominator);
-	void setGridLed(int row, int col, int red, int green, bool clear = true, bool copy = true);
-	void setAutomapLed(int col, int red, int green, bool clear = true, bool copy = true);
+	void setLedTop(int col, int red, int green, bool clear = true, bool copy = true);
+	void setLedSide(int row, int red, int green, bool clear = true, bool copy = true);
+	void setLedGrid(int row, int col, int red, int green, bool clear = true, bool copy = true);
 	
 protected:
 	ofxMidiOut midiOut;

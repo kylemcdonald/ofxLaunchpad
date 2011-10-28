@@ -14,15 +14,15 @@ void testApp::update(){
 	int col = ofMap(mouseX, 0, ofGetWidth(), 0, 8);
 	if(ofGetMousePressed()) {
 		if(row == 8) {
-			launchpad.setAutomapLed(col, 3, 0);
+			launchpad.setLedTop(col, 3, 0);
 		} else {
-			launchpad.setGridLed(row, col, 3, 0);
+			launchpad.setLedGrid(row, col, 3, 0);
 		}
 	} else {
 		if(row == 8) {
-			launchpad.setAutomapLed(col, 0, 3);
+			launchpad.setLedTop(col, 0, 3);
 		} else {
-			launchpad.setGridLed(row, col, 0, 3);
+			launchpad.setLedGrid(row, col, 0, 3);
 		}
 	}
 	

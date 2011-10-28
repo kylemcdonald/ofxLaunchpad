@@ -46,14 +46,19 @@ int getMode(int red, int green, bool clear, bool copy) {
 		((red & colorMask) << 0);
 }
 
-void ofxLaunchpad::setGridLed(int row, int col, int red, int green, bool clear, bool copy) {
-	int key = (row << 4) | (col << 0);
+void ofxLaunchpad::setLedTop(int col, int red, int green, bool clear, bool copy) {
+	int key = 104 + col;
+	midiOut.sendControlChange(1, key, getMode(red, green, clear, copy));
+}
+
+void ofxLaunchpad::setLedSide(int row, int red, int green, bool clear, bool copy) {
+	int key = (row << 4);
 	midiOut.sendNoteOn(1, key, getMode(red, green, clear, copy));
 }
 
-void ofxLaunchpad::setAutomapLed(int col, int red, int green, bool clear, bool copy) {
-	int key = 104 + col;
-	midiOut.sendControlChange(1, key, getMode(red, green, clear, copy));
+void ofxLaunchpad::setLedGrid(int row, int col, int red, int green, bool clear, bool copy) {
+	int key = (row << 4) | (col << 0);
+	midiOut.sendNoteOn(1, key, getMode(red, green, clear, copy));
 }
 
 void ofxLaunchpad::set(ofPixels& pix, bool clear, bool copy) {
