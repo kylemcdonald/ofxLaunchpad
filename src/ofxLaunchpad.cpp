@@ -28,6 +28,8 @@ void ofxLaunchpad::setup(int port, ofxLaunchpadListener* listener) {
 	if(listener != NULL) {
 		addListener(listener);
 	}
+	
+	fbo.allocate(256, 256);
 }
 
 ofColor boostBrightness(ofColor color) {
@@ -101,6 +103,21 @@ void ofxLaunchpad::draw(int x, int y, int size) const {
 	ofPopStyle();
 }
 
+void ofxLaunchpad::begin() {
+	fbo.begin();
+	ofPushStyle();
+	ofPushMatrix();	
+}
+
+void ofxLaunchpad::end() {
+	ofPopMatrix();
+	ofPopStyle();
+	fbo.end();
+	fbo.readToPixels(pix);
+	pix.crop(0, 0, 8, 8);
+	set(pix);
+}
+
 void ofxLaunchpad::addListener(ofxLaunchpadListener* listener) {
 	ofAddListener(automapButtonEvent, listener, &ofxLaunchpadListener::automapButton);
 	ofAddListener(gridButtonEvent, listener, &ofxLaunchpadListener::gridButton);
@@ -169,6 +186,7 @@ void ofxLaunchpad::set(ofPixels& pix, bool clear, bool copy) {
 			buffer[i++] = first;
 			buffer[i++] = second;
 		}
+		i++;
 	}
 	 // any note on signifies that we're done with rapid update
 	midiOut.sendNoteOn(1, 127, 0);

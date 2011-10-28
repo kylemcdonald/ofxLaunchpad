@@ -23,11 +23,13 @@ void testApp::mouseDragged(int x, int y, int button) {
 }
 
 void testApp::dragChange(int x, int y, int button, int reset) {
+	// remap from screen space to launchpad space
 	x = round(ofMap(x, 0, ofGetWidth(), -.5, 8.5));
 	y = round(ofMap(y, 0, ofGetHeight(), -1.5, 7.5));
 	if(y == -1) {
 		y = 8;
 	}
+	
 	if(reset) {
 		curColor = launchpad.getLedGrid(x, y).isOn() ? ofColor::black : ofColor::yellow;
 	}

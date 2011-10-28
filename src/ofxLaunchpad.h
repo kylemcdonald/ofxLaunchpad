@@ -23,6 +23,9 @@ public:
 	
 	void draw(int x, int y, int size) const;
 	
+	void begin();
+	void end();
+	
 	void set(ofPixels& pix, bool clear = true, bool copy = true);
 	void setBrightness(float brightness); // 0 to 1
 	void setLedAutomap(int col, ofxLaunchpadColor color);
@@ -41,6 +44,9 @@ protected:
 	enum MappingMode {XY_MAPPING_MODE, DRUM_MAPPING_MODE};
 	void setMappingMode(MappingMode mappingMode = XY_MAPPING_MODE);
 	void setDutyCycle(int numerator, int denominator);
+	
+	ofFbo fbo;
+	ofPixels pix;
 	
 	vector<ofxLaunchpadColor> buffer;
 	vector<ButtonEvent> lastEvent;
