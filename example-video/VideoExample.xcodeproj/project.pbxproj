@@ -72,6 +72,7 @@
 		27A9293D145A5CD0009CA158 /* ofxMidiIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxMidiIn.h; path = ../../ofxMidi/src/ofxMidiIn.h; sourceTree = SOURCE_ROOT; };
 		27A9293E145A5CD0009CA158 /* ofxMidiOut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxMidiOut.cpp; path = ../../ofxMidi/src/ofxMidiOut.cpp; sourceTree = SOURCE_ROOT; };
 		27A9293F145A5CD0009CA158 /* ofxMidiOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxMidiOut.h; path = ../../ofxMidi/src/ofxMidiOut.h; sourceTree = SOURCE_ROOT; };
+		27F20ACF145A5D4000388739 /* ofxLaunchpad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxLaunchpad.h; path = ../src/ofxLaunchpad.h; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -157,9 +158,27 @@
 			path = ../../ofxMidi/src;
 			sourceTree = SOURCE_ROOT;
 		};
+		27F20AC7145A5D3800388739 /* ofxLaunchpad */ = {
+			isa = PBXGroup;
+			children = (
+				27F20ACE145A5D4000388739 /* src */,
+			);
+			name = ofxLaunchpad;
+			sourceTree = "<group>";
+		};
+		27F20ACE145A5D4000388739 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				27F20ACF145A5D4000388739 /* ofxLaunchpad.h */,
+			);
+			name = src;
+			path = ../src;
+			sourceTree = SOURCE_ROOT;
+		};
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				27F20AC7145A5D3800388739 /* ofxLaunchpad */,
 				27A92827145A5CD0009CA158 /* ofxMidi */,
 			);
 			name = addons;
