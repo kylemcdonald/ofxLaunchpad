@@ -64,6 +64,7 @@
 /* Begin PBXFileReference section */
 		270A248C141220590073405C /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<absolute>"; };
 		27A2459C145A717200B9AD71 /* ofxLaunchpad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxLaunchpad.cpp; sourceTree = "<group>"; };
+		27A2474B145A98C100B9AD71 /* ofxLaunchpadListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxLaunchpadListener.h; sourceTree = "<group>"; };
 		27A92935145A5CD0009CA158 /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RtError.h; path = ../../ofxMidi/libs/RtError.h; sourceTree = SOURCE_ROOT; };
 		27A92936145A5CD0009CA158 /* RtMidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RtMidi.cpp; path = ../../ofxMidi/libs/RtMidi.cpp; sourceTree = SOURCE_ROOT; };
 		27A92937145A5CD0009CA158 /* RtMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RtMidi.h; path = ../../ofxMidi/libs/RtMidi.h; sourceTree = SOURCE_ROOT; };
@@ -173,6 +174,7 @@
 			children = (
 				27F20ACF145A5D4000388739 /* ofxLaunchpad.h */,
 				27A2459C145A717200B9AD71 /* ofxLaunchpad.cpp */,
+				27A2474B145A98C100B9AD71 /* ofxLaunchpadListener.h */,
 			);
 			name = src;
 			path = ../src;

@@ -17,13 +17,16 @@
 
 #include "ofMain.h"
 #include "ofxMidi.h"
+#include "ofxLaunchpadListener.h"
 
 class ofxLaunchpad : ofxMidiListener {
 public:	
 	enum MappingMode {XY_MAPPING_MODE, DRUM_MAPPING_MODE};
 	enum BrightnessMode {OFF_BRIGHTNESS_MODE, LOW_BRIGHTNESS_MODE, MEDIUM_BRIGHTNESS_MODE, FULL_BRIGHTNESS_MODE};
 	
-	void setup(int port);
+	void setup(int port, ofxLaunchpadListener* listener = NULL);
+	void addListener(ofxLaunchpadListener* listener);
+	void removeListener(ofxLaunchpadListener* listener);
 	
 	// high level methods
 	void set(ofPixels& pix, bool clear = true, bool copy = true);
@@ -38,21 +41,9 @@ public:
 	void setLedGrid(int col, int row, int red, int green, bool clear = true, bool copy = true);
 	
 	void newMidiMessage(ofxMidiEventArgs& args);
+	ofEvent<ButtonEvent> automapButtonEvent, gridButtonEvent;
 	
 protected:
 	ofxMidiOut midiOut;
 	ofxMidiIn midiIn;
-	
-	void automapButtonPressed(int col) {
-		cout << "automapButtonPressed " << col << endl; 
-	}
-	void automapButtonReleased(int col) {
-		cout << "automapButtonReleased " << col << endl; 
-	}
-	void gridButtonPressed(int col, int row) {
-		cout << "gridButtonPressed " << row << ", " << col << endl; 
-	}
-	void gridButtonReleased(int col, int row) {
-		cout << "gridButtonReleased " << row << ", " << col << endl; 
-	}
 };

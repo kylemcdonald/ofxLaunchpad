@@ -4,7 +4,9 @@ void testApp::setup(){
 	ofSetFrameRate(30);
 	ofSetVerticalSync(true);
 	ofBackground(255);
-	launchpad.setup(1);
+	
+	launchpad.setup(1, this);
+	
 	camera.initGrabber(640, 480);
 }
 
@@ -55,6 +57,18 @@ void testApp::keyPressed(int key){
 	} else if(key == 'f') {
 		launchpad.setAll(ofxLaunchpad::OFF_BRIGHTNESS_MODE);
 	}
+}
+
+void testApp::automapButtonPressed(int col) {
+}
+
+void testApp::automapButtonReleased(int col) {
+}
+
+void testApp::gridButtonPressed(int col, int row) {
+}
+
+void testApp::gridButtonReleased(int col, int row) {
 }
 
 void testApp::keyReleased(int key){

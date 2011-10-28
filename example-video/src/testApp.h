@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxLaunchpad.h"
 
-class testApp : public ofSimpleApp {
+class testApp : public ofBaseApp, public ofxLaunchpadListener {
 public:
 	void setup();
 	void update();
@@ -16,6 +16,11 @@ public:
 	void mouseDragged(int x, int y, int button);
 	void mousePressed(int x, int y, int button);
 	void mouseReleased();
+	
+	void automapButtonPressed(int col);
+	void automapButtonReleased(int col);
+	void gridButtonPressed(int col, int row);
+	void gridButtonReleased(int col, int row);
 	
 	ofxLaunchpad launchpad;
 	ofVideoGrabber camera;
