@@ -10,8 +10,13 @@ const int colorMask = 0x03;
 const int bufferMask = 0x01;
 	
 void ofxLaunchpad::setup(int port) {
+	midiIn.listPorts();
 	midiIn.openPort(port);
+	midiIn.addListener(this);
+	
+	midiOut.listPorts();
 	midiOut.openPort(port);
+	
 	setAll(OFF_BRIGHTNESS_MODE);
 	setMappingMode(XY_MAPPING_MODE);
 }
@@ -46,14 +51,9 @@ int getMode(int red, int green, bool clear, bool copy) {
 		((red & colorMask) << 0);
 }
 
-void ofxLaunchpad::setLedTop(int col, int red, int green, bool clear, bool copy) {
+void ofxLaunchpad::setLedAutomap(int col, int red, int green, bool clear, bool copy) {
 	int key = 104 + col;
 	midiOut.sendControlChange(1, key, getMode(red, green, clear, copy));
-}
-
-void ofxLaunchpad::setLedSide(int row, int red, int green, bool clear, bool copy) {
-	int key = (row << 4);
-	midiOut.sendNoteOn(1, key, getMode(red, green, clear, copy));
 }
 
 void ofxLaunchpad::setLedGrid(int row, int col, int red, int green, bool clear, bool copy) {

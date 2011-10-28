@@ -12,7 +12,7 @@
 #include "ofMain.h"
 #include "ofxMidi.h"
 
-class ofxLaunchpad {
+class ofxLaunchpad : ofxMidiListener {
 public:	
 	enum MappingMode {XY_MAPPING_MODE, DRUM_MAPPING_MODE};
 	enum BrightnessMode {OFF_BRIGHTNESS_MODE, LOW_BRIGHTNESS_MODE, MEDIUM_BRIGHTNESS_MODE, FULL_BRIGHTNESS_MODE};
@@ -28,9 +28,12 @@ public:
 	void setBufferingMode(bool copy, bool flash, int update, int display); // also resets the flash timer
 	void setAll(BrightnessMode brightnessMode = OFF_BRIGHTNESS_MODE); // resets all other data
 	void setDutyCycle(int numerator, int denominator);
-	void setLedTop(int col, int red, int green, bool clear = true, bool copy = true);
-	void setLedSide(int row, int red, int green, bool clear = true, bool copy = true);
+	void setLedAutomap(int col, int red, int green, bool clear = true, bool copy = true);
 	void setLedGrid(int row, int col, int red, int green, bool clear = true, bool copy = true);
+	
+	void newMidiMessage(ofxMidiEventArgs& eventArgs) {
+		cout << "got a message: " << eventArgs.byteOne << " " << eventArgs.byteTwo << endl;
+	}
 	
 protected:
 	ofxMidiOut midiOut;
