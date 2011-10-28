@@ -6,7 +6,9 @@
 
 const int numeratorMin = 1, numeratorMax = 16;
 const int denominatorMin = 3, denominatorMax = 18;
-
+const int colorMask = 0x03;
+const int bufferMask = 0x01;
+	
 void ofxLaunchpad::setup(int port) {
 	midiIn.openPort(port);
 	midiOut.openPort(port);
@@ -36,15 +38,22 @@ void ofxLaunchpad::setMappingMode(MappingMode mappingMode) {
 	midiOut.sendControlChange(1, 0, mappingMode == XY_MAPPING_MODE ? 1 : 2);
 }
 
-void ofxLaunchpad::setLed(int row, int col, int red, int green, bool clear, bool copy) {
-	int key = (row << 4) | col;
-	int colorMask = 0x03;
-	int velocity =
-	((green & colorMask) << 4) |
-	((clear ? 1 : 0) << 3) |
-	((copy ? 1 : 0) << 2) |
-	((red & colorMask) << 0);
-	midiOut.sendNoteOn(1, key, velocity);
+int getMode(int red, int green, bool clear, bool copy) {
+	return 
+		((green & colorMask) << 4) |
+		((clear ? 1 : 0) << 3) |
+		((copy ? 1 : 0) << 2) |
+		((red & colorMask) << 0);
+}
+
+void ofxLaunchpad::setGridLed(int row, int col, int red, int green, bool clear, bool copy) {
+	int key = (row << 4) | (col << 0);
+	midiOut.sendNoteOn(1, key, getMode(red, green, clear, copy));
+}
+
+void ofxLaunchpad::setAutomapLed(int col, int red, int green, bool clear, bool copy) {
+	int key = 104 + col;
+	midiOut.sendControlChange(1, key, getMode(red, green, clear, copy));
 }
 
 void ofxLaunchpad::set(ofPixels& pix, bool clear, bool copy) {
@@ -71,7 +80,6 @@ void ofxLaunchpad::set(ofPixels& pix, bool clear, bool copy) {
 }
 
 void ofxLaunchpad::setBufferingMode(bool copy, bool flash, int update, int display) {
-	int bufferMask = 0x01;
 	int bufferingMode =
 		(0 << 6) |
 		(1 << 5) |
