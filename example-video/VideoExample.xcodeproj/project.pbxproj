@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		270A248D141220590073405C /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 270A248C141220590073405C /* CoreMIDI.framework */; };
-		27A2459D145A717200B9AD71 /* ofxLaunchpad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27A2459C145A717200B9AD71 /* ofxLaunchpad.cpp */; };
+		274C54CF145ABADF007E8A80 /* ofxLaunchpad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 274C54C9145ABADF007E8A80 /* ofxLaunchpad.cpp */; };
+		274C54D0145ABADF007E8A80 /* ofxLaunchpadToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 274C54CD145ABADF007E8A80 /* ofxLaunchpadToggle.cpp */; };
 		27A92956145A5CD0009CA158 /* RtMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27A92936145A5CD0009CA158 /* RtMidi.cpp */; };
 		27A92957145A5CD0009CA158 /* ofxMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27A9293C145A5CD0009CA158 /* ofxMidiIn.cpp */; };
 		27A92958145A5CD0009CA158 /* ofxMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27A9293E145A5CD0009CA158 /* ofxMidiOut.cpp */; };
@@ -63,8 +64,12 @@
 
 /* Begin PBXFileReference section */
 		270A248C141220590073405C /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<absolute>"; };
-		27A2459C145A717200B9AD71 /* ofxLaunchpad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxLaunchpad.cpp; sourceTree = "<group>"; };
-		27A2474B145A98C100B9AD71 /* ofxLaunchpadListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxLaunchpadListener.h; sourceTree = "<group>"; };
+		274C54C9145ABADF007E8A80 /* ofxLaunchpad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxLaunchpad.cpp; path = ../src/ofxLaunchpad.cpp; sourceTree = SOURCE_ROOT; };
+		274C54CA145ABADF007E8A80 /* ofxLaunchpad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxLaunchpad.h; path = ../src/ofxLaunchpad.h; sourceTree = SOURCE_ROOT; };
+		274C54CB145ABADF007E8A80 /* ofxLaunchpadColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxLaunchpadColor.h; path = ../src/ofxLaunchpadColor.h; sourceTree = SOURCE_ROOT; };
+		274C54CC145ABADF007E8A80 /* ofxLaunchpadListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxLaunchpadListener.h; path = ../src/ofxLaunchpadListener.h; sourceTree = SOURCE_ROOT; };
+		274C54CD145ABADF007E8A80 /* ofxLaunchpadToggle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxLaunchpadToggle.cpp; path = ../src/ofxLaunchpadToggle.cpp; sourceTree = SOURCE_ROOT; };
+		274C54CE145ABADF007E8A80 /* ofxLaunchpadToggle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxLaunchpadToggle.h; path = ../src/ofxLaunchpadToggle.h; sourceTree = SOURCE_ROOT; };
 		27A92935145A5CD0009CA158 /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RtError.h; path = ../../ofxMidi/libs/RtError.h; sourceTree = SOURCE_ROOT; };
 		27A92936145A5CD0009CA158 /* RtMidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RtMidi.cpp; path = ../../ofxMidi/libs/RtMidi.cpp; sourceTree = SOURCE_ROOT; };
 		27A92937145A5CD0009CA158 /* RtMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RtMidi.h; path = ../../ofxMidi/libs/RtMidi.h; sourceTree = SOURCE_ROOT; };
@@ -75,7 +80,6 @@
 		27A9293D145A5CD0009CA158 /* ofxMidiIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxMidiIn.h; path = ../../ofxMidi/src/ofxMidiIn.h; sourceTree = SOURCE_ROOT; };
 		27A9293E145A5CD0009CA158 /* ofxMidiOut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxMidiOut.cpp; path = ../../ofxMidi/src/ofxMidiOut.cpp; sourceTree = SOURCE_ROOT; };
 		27A9293F145A5CD0009CA158 /* ofxMidiOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxMidiOut.h; path = ../../ofxMidi/src/ofxMidiOut.h; sourceTree = SOURCE_ROOT; };
-		27F20ACF145A5D4000388739 /* ofxLaunchpad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxLaunchpad.h; path = ../src/ofxLaunchpad.h; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -172,9 +176,12 @@
 		27F20ACE145A5D4000388739 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				27F20ACF145A5D4000388739 /* ofxLaunchpad.h */,
-				27A2459C145A717200B9AD71 /* ofxLaunchpad.cpp */,
-				27A2474B145A98C100B9AD71 /* ofxLaunchpadListener.h */,
+				274C54C9145ABADF007E8A80 /* ofxLaunchpad.cpp */,
+				274C54CA145ABADF007E8A80 /* ofxLaunchpad.h */,
+				274C54CB145ABADF007E8A80 /* ofxLaunchpadColor.h */,
+				274C54CC145ABADF007E8A80 /* ofxLaunchpadListener.h */,
+				274C54CD145ABADF007E8A80 /* ofxLaunchpadToggle.cpp */,
+				274C54CE145ABADF007E8A80 /* ofxLaunchpadToggle.h */,
 			);
 			name = src;
 			path = ../src;
@@ -354,7 +361,8 @@
 				27A92956145A5CD0009CA158 /* RtMidi.cpp in Sources */,
 				27A92957145A5CD0009CA158 /* ofxMidiIn.cpp in Sources */,
 				27A92958145A5CD0009CA158 /* ofxMidiOut.cpp in Sources */,
-				27A2459D145A717200B9AD71 /* ofxLaunchpad.cpp in Sources */,
+				274C54CF145ABADF007E8A80 /* ofxLaunchpad.cpp in Sources */,
+				274C54D0145ABADF007E8A80 /* ofxLaunchpadToggle.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

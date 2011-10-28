@@ -18,13 +18,14 @@
 #include "ofMain.h"
 #include "ofxMidi.h"
 #include "ofxLaunchpadListener.h"
+#include "ofxLaunchpadColor.h"
 
 class ofxLaunchpad : ofxMidiListener {
 public:	
 	enum MappingMode {XY_MAPPING_MODE, DRUM_MAPPING_MODE};
 	enum BrightnessMode {OFF_BRIGHTNESS_MODE, LOW_BRIGHTNESS_MODE, MEDIUM_BRIGHTNESS_MODE, FULL_BRIGHTNESS_MODE};
 	
-	void setup(int port, ofxLaunchpadListener* listener = NULL);
+	virtual void setup(int port, ofxLaunchpadListener* listener = NULL);
 	void addListener(ofxLaunchpadListener* listener);
 	void removeListener(ofxLaunchpadListener* listener);
 	
@@ -47,3 +48,5 @@ protected:
 	ofxMidiOut midiOut;
 	ofxMidiIn midiIn;
 };
+
+// <3 kyle

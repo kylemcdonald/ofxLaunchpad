@@ -6,7 +6,6 @@
 
 const int numeratorMin = 1, numeratorMax = 16;
 const int denominatorMin = 3, denominatorMax = 18;
-const int colorMask = 3;
 const int bufferMask = 1;
 const int automapBegin = 104;
 const int rowMask = 7;
@@ -60,45 +59,28 @@ void ofxLaunchpad::setMappingMode(MappingMode mappingMode) {
 	midiOut.sendControlChange(1, 0, mappingMode == XY_MAPPING_MODE ? 1 : 2);
 }
 
-int getMode(int red, int green, bool clear, bool copy) {
-	return 
-		((green & colorMask) << 4) |
-		((clear ? 1 : 0) << 3) |
-		((copy ? 1 : 0) << 2) |
-		((red & colorMask) << 0);
-}
-
 void ofxLaunchpad::setLedAutomap(int col, int red, int green, bool clear, bool copy) {
 	int key = automapBegin + col;
-	midiOut.sendControlChange(1, key, getMode(red, green, clear, copy));
+	midiOut.sendControlChange(1, key, ofxLaunchpadColor(red, green, clear, copy));
 }
 
 void ofxLaunchpad::setLedGrid(int col, int row, int red, int green, bool clear, bool copy) {
+	if(row == -1) {
+		setLedAutomap(col, red, green, clear, copy);
+	}
 	int key = ((row & rowMask) << 4) | ((col & colMask) << 0);
-	midiOut.sendNoteOn(1, key, getMode(red, green, clear, copy));
+	midiOut.sendNoteOn(1, key, ofxLaunchpadColor(red, green, clear, copy));
 }
 
 void ofxLaunchpad::set(ofPixels& pix, bool clear, bool copy) {
-	int i = 0;
 	for(int y = 0; y < 8; y++) {
-		for(int x = 0; x < 8;) {
-			vector<int> velocity;
-			for(int j = 0; j < 2; j++) {
-				ofColor cur = pix.getColor(x, y);
-				int red = ofMap(cur.r, 0, 255, 0, 3, true);
-				int green = ofMap(cur.g, 0, 255, 0, 3, true);
-				int colorMask = 0x03;
-				velocity.push_back(
-					((green & colorMask) << 4) |
-					((clear ? 1 : 0) << 3) |
-					((copy ? 1 : 0) << 2) |
-					((red & colorMask) << 0));
-				x++;
-			}
-			midiOut.sendNoteOn(3, velocity[0], velocity[1]);
+		for(int x = 0; x < 8; x += 2) {
+			midiOut.sendNoteOn(3,
+				ofxLaunchpadColor(pix.getColor(x + 0, y)),
+				ofxLaunchpadColor(pix.getColor(x + 1, y)));
 		}
 	}
-	 // note on signifies that we're done with rapid update
+	 // any note on signifies that we're done with rapid update
 	midiOut.sendNoteOn(1, 127, 0);
 }
 
