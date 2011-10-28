@@ -18,6 +18,12 @@ ofxLaunchpadColor::ofxLaunchpadColor(BrightnessMode brightnessMode)
 	}
 }
 
+ofxLaunchpadColor::ofxLaunchpadColor(bool on, bool clear, bool copy)
+:clear(clear)
+,copy(copy) {
+	red = green = (on ? 3 : 0);
+}
+
 ofxLaunchpadColor::ofxLaunchpadColor(ofColor color) {
 	red = ofMap(color.r, 0, 255, 0, 3, true);
 	green = ofMap(color.g, 0, 255, 0, 3, true);
@@ -31,11 +37,23 @@ ofxLaunchpadColor::operator ofColor() const {
 	return color;
 }
 
-ofxLaunchpadColor::operator int() const {
+int ofxLaunchpadColor::getMidi() const {
 	static const int colorMask = 3;
 	return 
 		((green & colorMask) << 4) |
 		((clear ? 1 : 0) << 3) |
 		((copy ? 1 : 0) << 2) |
 		((red & colorMask) << 0);
+}
+
+bool ofxLaunchpadColor::isOn() const {
+	return red > 0 || green > 0;
+}
+
+bool ofxLaunchpadColor::isRed() const {
+	return red == 3 && green == 0;
+}
+
+bool ofxLaunchpadColor::isGreen() const {
+	return red == 0 && green == 3;
 }

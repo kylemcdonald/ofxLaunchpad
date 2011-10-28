@@ -19,7 +19,7 @@ public:
 	virtual void gridButtonPressed(int col, int row) {}
 	virtual void gridButtonReleased(int col, int row) {}
 	
-	// this is a general version of the four methods above. automap is row -1.
+	// this is a general version of the four methods above. automap is row 8.
 	virtual void launchpadEvent(int col, int row, int pressed) {}
 	
 	// these methods handle the events for you

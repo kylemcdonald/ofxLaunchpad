@@ -10,8 +10,12 @@ public:
 	bool clear, copy;
 	
 	ofxLaunchpadColor(int red = 0, int green = 0, bool clear = true, bool copy = true);
+	ofxLaunchpadColor(bool on, bool clear = true, bool copy = true);
 	ofxLaunchpadColor(BrightnessMode brightnessMode);
 	ofxLaunchpadColor(ofColor color);
 	operator ofColor() const;
-	operator int() const; // returns the MIDI value
+	int getMidi() const;
+	bool isOn() const;
+	bool isRed() const;
+	bool isGreen() const;
 };

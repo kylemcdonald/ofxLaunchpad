@@ -10,6 +10,9 @@ const int bufferMask = 1;
 const int automapBegin = 104;
 const int rowMask = 7;
 const int colMask = 15;
+const int cols = 9;
+const int automapRow = 8;
+const int totalButtons = 80;
 	
 void ofxLaunchpad::setup(int port, ofxLaunchpadListener* listener) {
 	midiIn.listPorts();
@@ -19,12 +22,62 @@ void ofxLaunchpad::setup(int port, ofxLaunchpadListener* listener) {
 	midiOut.listPorts();
 	midiOut.openPort(port);
 	
-	setAll();
 	setMappingMode();
+	setAll();
 	
 	if(listener != NULL) {
 		addListener(listener);
 	}
+}
+
+void ofxLaunchpad::draw(int x, int y, int size) const {
+	ofPushStyle();
+	ofPushMatrix();
+	ofSetLineWidth(size / (cols * 10));
+	ofTranslate(x, y);
+	float scale = size / cols;
+	ofScale(scale, scale);
+	
+	ofPushMatrix();
+	ofTranslate(.5, .5);
+	for(int col = 0; col < 8; col++) {
+		ofFill();
+		ofSetColor(getLedGrid(col, automapRow));
+		ofCircle(col, 0, .5);
+		ofNoFill();
+		ofSetColor(128);
+		ofCircle(col, 0, .5);
+	}
+	ofPopMatrix();
+	
+	ofTranslate(0, 1);
+	for(int row = 0; row < 8; row++) {
+		for(int col = 0; col < 8; col++) {
+			ofPushMatrix();
+			ofTranslate(col, row);
+			ofFill();
+			ofSetColor(getLedGrid(col, row));
+			ofRect(0, 0, 1, 1);
+			ofNoFill();
+			ofSetColor(128);
+			ofRect(0, 0, 1, 1);
+			ofPopMatrix();
+		}
+	}
+	
+	ofTranslate(8, 0);
+	ofTranslate(.5, .5);
+	for(int row = 0; row < 8; row++) {
+		ofFill();
+		ofSetColor(getLedGrid(8, row));
+		ofCircle(0, row, .5);
+		ofNoFill();
+		ofSetColor(128);
+		ofCircle(0, row, .5);
+	}
+	
+	ofPopMatrix();
+	ofPopStyle();
 }
 
 void ofxLaunchpad::addListener(ofxLaunchpadListener* listener) {
@@ -61,23 +114,33 @@ void ofxLaunchpad::setMappingMode(MappingMode mappingMode) {
 
 void ofxLaunchpad::setLedAutomap(int col, ofxLaunchpadColor color) {
 	int key = automapBegin + col;
-	midiOut.sendControlChange(1, key, color);
+	midiOut.sendControlChange(1, key, color.getMidi());
+	buffer[8 * cols + col] = color;
 }
 
 void ofxLaunchpad::setLedGrid(int col, int row, ofxLaunchpadColor color) {
-	if(row == -1) {
+	if(row == automapRow) {
 		setLedAutomap(col, color);
+	} else {
+		int key = ((row & rowMask) << 4) | ((col & colMask) << 0);
+		midiOut.sendNoteOn(1, key, color.getMidi());
+		buffer[row * cols + col] = color;
 	}
-	int key = ((row & rowMask) << 4) | ((col & colMask) << 0);
-	midiOut.sendNoteOn(1, key, color);
+}
+
+ofxLaunchpadColor ofxLaunchpad::getLedGrid(int col, int row) const {
+	return buffer[row * cols + col];
 }
 
 void ofxLaunchpad::set(ofPixels& pix, bool clear, bool copy) {
+	int i = 0;
 	for(int y = 0; y < 8; y++) {
 		for(int x = 0; x < 8; x += 2) {
-			midiOut.sendNoteOn(3,
-				ofxLaunchpadColor(pix.getColor(x + 0, y)),
-				ofxLaunchpadColor(pix.getColor(x + 1, y)));
+			ofxLaunchpadColor first(pix.getColor(x, y));
+			ofxLaunchpadColor second(pix.getColor(x + 1, y));
+			midiOut.sendNoteOn(3, first.getMidi(), second.getMidi());
+			buffer[i++] = first;
+			buffer[i++] = second;
 		}
 	}
 	 // any note on signifies that we're done with rapid update
@@ -105,7 +168,7 @@ void ofxLaunchpad::setAll(ofxLaunchpadColor::BrightnessMode brightnessMode) {
 		case ofxLaunchpadColor::FULL_BRIGHTNESS_MODE: mode = 127; break;
 	}
 	buffer.clear();
-	buffer.resize(80, ofxLaunchpadColor(mode));
+	buffer.resize(totalButtons, ofxLaunchpadColor(mode));
 	midiOut.sendControlChange(1, 0, mode);
 }
 
@@ -131,8 +194,8 @@ void ofxLaunchpad::newMidiMessage(ofxMidiEventArgs& args) {
 		ButtonEvent event(col, row, pressed);
 		ofNotifyEvent(gridButtonEvent, event);
 	} else {
-		int col = args.byteOne - automapBegin;
-		ButtonEvent event(col, -1, pressed);
+		int col = (args.byteOne - automapBegin) & colMask;
+		ButtonEvent event(col, automapRow, pressed);
 		ofNotifyEvent(automapButtonEvent, event);
 	}
 }
