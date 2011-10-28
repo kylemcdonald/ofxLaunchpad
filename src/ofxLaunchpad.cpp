@@ -98,6 +98,7 @@ void ofxLaunchpad::set(ofPixels& pix, bool clear, bool copy) {
 			midiOut.sendNoteOn(3, velocity[0], velocity[1]);
 		}
 	}
+	 // note on signifies that we're done with rapid update
 	midiOut.sendNoteOn(1, 127, 0);
 }
 
