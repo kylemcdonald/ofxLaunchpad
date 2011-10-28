@@ -1,7 +1,7 @@
 #include "testApp.h"
 
 void testApp::setup(){
-	ofSetFrameRate(10);
+	ofSetFrameRate(30);
 	ofSetVerticalSync(true);
 	ofBackground(255);
 	launchpad.setup(1);
@@ -9,19 +9,16 @@ void testApp::setup(){
 }
 
 void testApp::update(){
-/*
+
 	int row = ofMap(mouseY, 0, ofGetHeight(), 0, 7, false);
 	int col = ofMap(mouseX, 0, ofGetWidth(), 0, 8, true);
 	if(ofGetMousePressed()) {
 		launchpad.setLed(row, col, 3, 0);
+		launchpad.setBrightness(ofMap(mouseX, 0, ofGetWidth(), 0, 1));
 	} else {
 		launchpad.setLed(row, col, 0, 3);
 	}
-	*/
-	int i = ofGetFrameNum();
-	int red = i % 4;
-	int green = 3 - red;
-	//launchpad.setAll(red, green);
+	
 	//launchpad.setLed(0, 0, 0, 0);
 	
 	camera.update();
@@ -30,7 +27,7 @@ void testApp::update(){
 		pix.crop(80, 0, 480, 480);
 		pix.resize(8, 8);
 		pix.update();
-		launchpad.set(pix.getPixelsRef());
+		//launchpad.set(pix.getPixelsRef());
 	}
 }
 
@@ -41,6 +38,15 @@ void testApp::draw(){
 }
 
 void testApp::keyPressed(int key){
+	if(key == 'a') {
+		launchpad.setAll(ofxLaunchpad::LOW_BRIGHTNESS_MODE);
+	} else if(key == 's') {
+		launchpad.setAll(ofxLaunchpad::MEDIUM_BRIGHTNESS_MODE);
+	} else if(key == 'd') {
+		launchpad.setAll(ofxLaunchpad::FULL_BRIGHTNESS_MODE);
+	} else if(key == 'f') {
+		launchpad.setAll(ofxLaunchpad::OFF_BRIGHTNESS_MODE);
+	}
 }
 
 void testApp::keyReleased(int key){

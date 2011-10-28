@@ -4,6 +4,9 @@
 // and the midi will fill up and have trouble
 // need some kind of rate limiting buffer?
 
+const int numeratorMin = 1, numeratorMax = 16;
+const int denominatorMin = 3, denominatorMax = 18;
+
 void ofxLaunchpad::setup(int port) {
 	midiIn.openPort(port);
 	midiOut.openPort(port);
@@ -11,14 +14,27 @@ void ofxLaunchpad::setup(int port) {
 	setMappingMode(XY_MAPPING_MODE);
 }
 
-void ofxLaunchpad::setLed(int key, int velocity) {
-	midiOut.sendNoteOn(1, key, velocity);
+void ofxLaunchpad::setBrightness(float brightness) {
+	float dutyCycle = brightness / 2;
+	float bestDistance;
+	int bestDenominator, bestNumerator;
+	for(int denominator = denominatorMin; denominator <= denominatorMax; denominator++) {
+		for(int numerator = numeratorMin; numerator <= denominator; numerator++) {
+			float curDutyCycle = (float) numerator / (float) denominator;
+			float curDistance = abs(dutyCycle - curDutyCycle);
+			if((curDistance < bestDistance) || (denominator == denominatorMin && numerator == numeratorMin)) {
+				bestDenominator = denominator;
+				bestNumerator = numerator;
+				bestDistance = curDistance;
+			}
+		}
+	}
+	setDutyCycle(bestNumerator, bestDenominator);
 }
 
 void ofxLaunchpad::setMappingMode(MappingMode mappingMode) {
 	midiOut.sendControlChange(1, 0, mappingMode == XY_MAPPING_MODE ? 1 : 2);
 }
-
 
 void ofxLaunchpad::setLed(int row, int col, int red, int green, bool clear, bool copy) {
 	int key = (row << 4) | col;
@@ -76,4 +92,17 @@ void ofxLaunchpad::setAll(BrightnessMode brightnessMode) {
 		case FULL_BRIGHTNESS_MODE: mode = 127; break;
 	}
 	midiOut.sendControlChange(1, 0, mode);
+}
+
+void ofxLaunchpad::setDutyCycle(int numerator, int denominator) {
+	numerator = ofClamp(numerator, numeratorMin, numeratorMax);
+	denominator = ofClamp(denominator, denominatorMin, denominatorMax);
+	int data = (denominator - 3) << 0;
+	if(numerator < 9) {
+		data |= (numerator - 1) << 4;
+		midiOut.sendControlChange(1, 30, data);
+	} else {
+		data |= (numerator - 9) << 4;
+		midiOut.sendControlChange(1, 31, data);
+	}
 }

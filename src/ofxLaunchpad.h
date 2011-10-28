@@ -20,8 +20,8 @@ public:
 	void setup(int port);
 	
 	// high level methods
-	void setLed(int key, int velocity);
-	void set(ofPixels& pix, bool clear = true, bool copy = true);	
+	void set(ofPixels& pix, bool clear = true, bool copy = true);
+	void setBrightness(float brightness); // 0 to 1
 	
 	// low level methods
 	void setLed(int row, int col, int red, int green, bool clear = true, bool copy = true);
@@ -29,6 +29,7 @@ public:
 	void setMappingMode(MappingMode mappingMode);
 	void setBufferingMode(bool copy, bool flash, int update, int display); // also resets the flash timer
 	void setAll(BrightnessMode brightnessMode = OFF_BRIGHTNESS_MODE); // resets all other data
+	void setDutyCycle(int numerator, int denominator);
 	
 protected:
 	ofxMidiOut midiOut;
