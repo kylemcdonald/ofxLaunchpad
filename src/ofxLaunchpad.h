@@ -43,6 +43,7 @@ protected:
 	void setDutyCycle(int numerator, int denominator);
 	
 	vector<ofxLaunchpadColor> buffer;
+	vector<ButtonEvent> lastEvent;
 };
 
 // <3 kyle

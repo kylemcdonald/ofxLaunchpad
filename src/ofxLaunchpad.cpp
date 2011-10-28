@@ -15,15 +15,15 @@ const int automapRow = 8;
 const int totalButtons = 80;
 	
 void ofxLaunchpad::setup(int port, ofxLaunchpadListener* listener) {
-	midiIn.listPorts();
-	midiIn.openPort(port);
-	midiIn.addListener(this);
-	
 	midiOut.listPorts();
 	midiOut.openPort(port);
 	
 	setMappingMode();
 	setAll();
+	
+	midiIn.listPorts();
+	midiIn.openPort(port);
+	midiIn.addListener(this);
 	
 	if(listener != NULL) {
 		addListener(listener);
@@ -167,8 +167,13 @@ void ofxLaunchpad::setAll(ofxLaunchpadColor::BrightnessMode brightnessMode) {
 		case ofxLaunchpadColor::MEDIUM_BRIGHTNESS_MODE: mode = 126; break;
 		case ofxLaunchpadColor::FULL_BRIGHTNESS_MODE: mode = 127; break;
 	}
+	
 	buffer.clear();
 	buffer.resize(totalButtons, ofxLaunchpadColor(mode));
+	
+	lastEvent.clear();
+	lastEvent.resize(totalButtons);
+	
 	midiOut.sendControlChange(1, 0, mode);
 }
 
@@ -191,11 +196,16 @@ void ofxLaunchpad::newMidiMessage(ofxMidiEventArgs& args) {
 	if(grid) {
 		int row = (args.byteOne >> 4) & rowMask;
 		int col = (args.byteOne >> 0) & colMask;
-		ButtonEvent event(col, row, pressed);
+		int i = row * cols + col;
+		ButtonEvent event(col, row, pressed, &lastEvent[i]);
 		ofNotifyEvent(gridButtonEvent, event);
+		lastEvent[i] = event;
 	} else {
+		int row = automapRow;
 		int col = (args.byteOne - automapBegin) & colMask;
-		ButtonEvent event(col, automapRow, pressed);
+		int i = row * cols + col;
+		ButtonEvent event(col, row, pressed, &lastEvent[i]);
 		ofNotifyEvent(automapButtonEvent, event);
+		lastEvent[i] = event;
 	}
 }

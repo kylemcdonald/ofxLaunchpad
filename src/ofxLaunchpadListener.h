@@ -6,8 +6,15 @@ class ButtonEvent : public ofEventArgs {
 public:
 	int col, row;
 	bool pressed;
-	ButtonEvent(int col = 0, int row = 0, bool pressed = false)
+	float timestamp, duration;
+	ButtonEvent(int col = 0, int row = 0, bool pressed = false, ButtonEvent* previous = NULL)
 	:col(col), row(row), pressed(pressed) {
+		timestamp = ofGetElapsedTimef();
+		if(previous != NULL) {
+			duration = timestamp - previous->timestamp;
+		} else {
+			duration = 0;
+		}
 	}
 };
 
@@ -20,7 +27,7 @@ public:
 	virtual void gridButtonReleased(int col, int row) {}
 	
 	// this is a general version of the four methods above. automap is row 8.
-	virtual void launchpadEvent(int col, int row, int pressed) {}
+	virtual void launchpadEvent(ButtonEvent event) {}
 	
 	// these methods handle the events for you
 	virtual void automapButton(ButtonEvent& buttonEvent) {
@@ -29,7 +36,7 @@ public:
 		} else {
 			automapButtonReleased(buttonEvent.col);
 		}
-		launchpadEvent(buttonEvent.col, buttonEvent.row, buttonEvent.pressed);
+		launchpadEvent(buttonEvent);
 	}
 	virtual void gridButton(ButtonEvent& buttonEvent) {
 		if(buttonEvent.pressed) {
@@ -37,6 +44,6 @@ public:
 		} else {
 			gridButtonReleased(buttonEvent.col, buttonEvent.row);
 		}
-		launchpadEvent(buttonEvent.col, buttonEvent.row, buttonEvent.pressed);
+		launchpadEvent(buttonEvent);
 	}
 };

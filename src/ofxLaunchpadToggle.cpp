@@ -1,7 +1,7 @@
 #include "ofxLaunchpadToggle.h"
 
 ofxLaunchpadToggle::ofxLaunchpadToggle()
-:toggleMode(CYCLE_MODE) {
+:toggleMode(HOLD_MODE) {
 }
 
 void ofxLaunchpadToggle::setup(int port, ofxLaunchpadListener* listener) {
@@ -9,7 +9,11 @@ void ofxLaunchpadToggle::setup(int port, ofxLaunchpadListener* listener) {
 	addListener(this);
 }
 
-void ofxLaunchpadToggle::launchpadEvent(int col, int row, int pressed) {
+void ofxLaunchpadToggle::launchpadEvent(ButtonEvent buttonEvent) {
+	int row = buttonEvent.row;
+	int col = buttonEvent.col;
+	bool pressed = buttonEvent.pressed;
+	float duration = buttonEvent.duration;
 	ofxLaunchpadColor cur = getLedGrid(col, row);
 	switch(toggleMode) {
 		case MOMENTARY_MODE:
@@ -23,11 +27,22 @@ void ofxLaunchpadToggle::launchpadEvent(int col, int row, int pressed) {
 		case CYCLE_MODE:
 			if(pressed) {
 				if(cur.isRed()) {
-					setLedGrid(col, row, ofxLaunchpadColor(0, 3));
+					setLedGrid(col, row, ofColor::green);
 				} else if(cur.isGreen()) {
-					setLedGrid(col, row, ofxLaunchpadColor(0, 0));
+					setLedGrid(col, row, ofColor::black);
 				} else {
-					setLedGrid(col, row, ofxLaunchpadColor(3, 0));
+					setLedGrid(col, row, ofColor::red);
+				}
+			}
+			break;
+		case HOLD_MODE:
+			if(!pressed) {
+				if(duration < .15) {
+					setLedGrid(col, row, ofColor::black);
+				} else if(duration < .75) {
+					setLedGrid(col, row, ofColor::green);
+				} else {
+					setLedGrid(col, row, ofColor::red);
 				}
 			}
 			break;

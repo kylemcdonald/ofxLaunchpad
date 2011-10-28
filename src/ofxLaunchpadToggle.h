@@ -7,10 +7,11 @@ public:
 	enum ToggleMode {
 		MOMENTARY_MODE,
 		TOGGLE_MODE,
-		CYCLE_MODE};
+		CYCLE_MODE,
+		HOLD_MODE};
 	ofxLaunchpadToggle();
 	void setup(int port, ofxLaunchpadListener* listener = NULL);
-	void launchpadEvent(int col, int row, int pressed);
+	void launchpadEvent(ButtonEvent buttonEvent);
 private:
 	ToggleMode toggleMode;
 };
