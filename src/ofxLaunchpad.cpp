@@ -6,8 +6,11 @@
 
 const int numeratorMin = 1, numeratorMax = 16;
 const int denominatorMin = 3, denominatorMax = 18;
-const int colorMask = 0x03;
-const int bufferMask = 0x01;
+const int colorMask = 3;
+const int bufferMask = 1;
+const int automapBegin = 104;
+const int rowMask = 7;
+const int colMask = 15;
 	
 void ofxLaunchpad::setup(int port) {
 	midiIn.listPorts();
@@ -52,12 +55,12 @@ int getMode(int red, int green, bool clear, bool copy) {
 }
 
 void ofxLaunchpad::setLedAutomap(int col, int red, int green, bool clear, bool copy) {
-	int key = 104 + col;
+	int key = automapBegin + col;
 	midiOut.sendControlChange(1, key, getMode(red, green, clear, copy));
 }
 
-void ofxLaunchpad::setLedGrid(int row, int col, int red, int green, bool clear, bool copy) {
-	int key = (row << 4) | (col << 0);
+void ofxLaunchpad::setLedGrid(int col, int row, int red, int green, bool clear, bool copy) {
+	int key = ((row & rowMask) << 4) | ((col & colMask) << 0);
 	midiOut.sendNoteOn(1, key, getMode(red, green, clear, copy));
 }
 
@@ -117,5 +120,26 @@ void ofxLaunchpad::setDutyCycle(int numerator, int denominator) {
 	} else {
 		data |= (numerator - 9) << 4;
 		midiOut.sendControlChange(1, 31, data);
+	}
+}
+
+void ofxLaunchpad::newMidiMessage(ofxMidiEventArgs& args) {
+	int pressed = args.byteTwo > 0;
+	int grid = args.status == MIDI_NOTE_ON;
+	if(grid) {
+		int row = (args.byteOne >> 4) & rowMask;
+		int col = (args.byteOne >> 0) & colMask;
+		if(pressed) {
+			gridButtonPressed(col, row);
+		} else {
+			gridButtonReleased(col, row);
+		}
+	} else {
+		int col = args.byteOne - automapBegin;
+		if(pressed) {
+			automapButtonPressed(col);
+		} else {
+			automapButtonReleased(col);
+		}
 	}
 }

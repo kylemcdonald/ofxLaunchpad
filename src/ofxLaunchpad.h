@@ -1,7 +1,13 @@
 /*
  this is a fairly straightforward implementation of the spec for the novation
- launchpad, as described in the programmer's guide. the 'low level methods' are
+ launchpad, as described in the programmer's guide. the "low level methods" are
  taken almost directly from the documentation.
+ 
+ for the purposes of the low level functions, "the grid" refers to the main 8x8
+ grid as well as the 8 buttons on the right. the 8 buttons on the right are in
+ column 8 while the 8 buttons on the left are in column 0.
+ 
+ the row of buttons along the top are called the "automap" buttons.
  
  setAll() handles the LED test mode, and also incorporates the reset function
  with OFF_BRIGHTNESS_MODE.
@@ -29,13 +35,24 @@ public:
 	void setAll(BrightnessMode brightnessMode = OFF_BRIGHTNESS_MODE); // resets all other data
 	void setDutyCycle(int numerator, int denominator);
 	void setLedAutomap(int col, int red, int green, bool clear = true, bool copy = true);
-	void setLedGrid(int row, int col, int red, int green, bool clear = true, bool copy = true);
+	void setLedGrid(int col, int row, int red, int green, bool clear = true, bool copy = true);
 	
-	void newMidiMessage(ofxMidiEventArgs& eventArgs) {
-		cout << "got a message: " << eventArgs.byteOne << " " << eventArgs.byteTwo << endl;
-	}
+	void newMidiMessage(ofxMidiEventArgs& args);
 	
 protected:
 	ofxMidiOut midiOut;
 	ofxMidiIn midiIn;
+	
+	void automapButtonPressed(int col) {
+		cout << "automapButtonPressed " << col << endl; 
+	}
+	void automapButtonReleased(int col) {
+		cout << "automapButtonReleased " << col << endl; 
+	}
+	void gridButtonPressed(int col, int row) {
+		cout << "gridButtonPressed " << row << ", " << col << endl; 
+	}
+	void gridButtonReleased(int col, int row) {
+		cout << "gridButtonReleased " << row << ", " << col << endl; 
+	}
 };

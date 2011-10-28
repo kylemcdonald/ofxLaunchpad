@@ -10,19 +10,19 @@ void testApp::setup(){
 
 void testApp::update(){
 
-	int row = ofMap(mouseY, 0, ofGetHeight(), 0, 8);
 	int col = ofMap(mouseX, 0, ofGetWidth(), 0, 8);
+	int row = ofMap(mouseY, 0, ofGetHeight(), 0, 8);
 	if(ofGetMousePressed()) {
 		if(row == 8) {
 			launchpad.setLedAutomap(col, 3, 0);
 		} else {
-			launchpad.setLedGrid(row, col, 3, 0);
+			launchpad.setLedGrid(col, row, 3, 0);
 		}
 	} else {
 		if(row == 8) {
 			launchpad.setLedAutomap(col, 0, 3);
 		} else {
-			launchpad.setLedGrid(row, col, 0, 3);
+			launchpad.setLedGrid(col, row, 0, 3);
 		}
 	}
 	
