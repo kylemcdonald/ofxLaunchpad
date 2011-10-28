@@ -36,12 +36,14 @@ void ofxLaunchpadToggle::launchpadEvent(ButtonEvent buttonEvent) {
 			}
 			break;
 		case HOLD_MODE:
-			if(!pressed) {
-				if(duration < .15) {
-					setLedGrid(col, row, ofColor::black);
-				} else if(duration < .75) {
-					setLedGrid(col, row, ofColor::green);
+			if(pressed) {
+				if(cur.isOn()) {
+					setLedGrid(col, row, false);
 				} else {
+					setLedGrid(col, row, ofColor::green);
+				}
+			} else {
+				if(cur.isOn() && duration > .2) {
 					setLedGrid(col, row, ofColor::red);
 				}
 			}
