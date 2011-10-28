@@ -9,6 +9,10 @@ void ofxLaunchpadToggle::setup(int port, ofxLaunchpadListener* listener) {
 	addListener(this);
 }
 
+void ofxLaunchpadToggle::setToggleMode(ToggleMode toggleMode) {
+	this->toggleMode = toggleMode;
+}
+
 void ofxLaunchpadToggle::launchpadEvent(ButtonEvent buttonEvent) {
 	int row = buttonEvent.row;
 	int col = buttonEvent.col;

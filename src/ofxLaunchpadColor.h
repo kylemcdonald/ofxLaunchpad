@@ -18,4 +18,7 @@ public:
 	bool isOn() const;
 	bool isRed() const;
 	bool isGreen() const;
+	
+	bool operator==(ofxLaunchpadColor& color) const;
+	bool operator!=(ofxLaunchpadColor& color) const;
 };

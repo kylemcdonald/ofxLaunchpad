@@ -57,3 +57,11 @@ bool ofxLaunchpadColor::isRed() const {
 bool ofxLaunchpadColor::isGreen() const {
 	return red == 0 && green == 3;
 }
+
+bool ofxLaunchpadColor::operator==(ofxLaunchpadColor& color) const {
+	return getMidi() == color.getMidi();
+}
+
+bool ofxLaunchpadColor::operator!=(ofxLaunchpadColor& color) const {
+	return getMidi() != color.getMidi();
+}

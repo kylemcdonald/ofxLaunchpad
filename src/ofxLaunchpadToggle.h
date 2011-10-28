@@ -11,6 +11,7 @@ public:
 		HOLD_MODE};
 	ofxLaunchpadToggle();
 	void setup(int port, ofxLaunchpadListener* listener = NULL);
+	void setToggleMode(ToggleMode toggleMode);
 	void launchpadEvent(ButtonEvent buttonEvent);
 private:
 	ToggleMode toggleMode;
