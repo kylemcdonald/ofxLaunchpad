@@ -19,8 +19,8 @@ void ofxLaunchpad::setup(int port, ofxLaunchpadListener* listener) {
 	midiOut.listPorts();
 	midiOut.openPort(port);
 	
-	setAll(OFF_BRIGHTNESS_MODE);
-	setMappingMode(XY_MAPPING_MODE);
+	setAll();
+	setMappingMode();
 	
 	if(listener != NULL) {
 		addListener(listener);
@@ -96,14 +96,16 @@ void ofxLaunchpad::setBufferingMode(bool copy, bool flash, int update, int displ
 	midiOut.sendControlChange(1, 0, bufferingMode);
 }
 
-void ofxLaunchpad::setAll(BrightnessMode brightnessMode) {
+void ofxLaunchpad::setAll(ofxLaunchpadColor::BrightnessMode brightnessMode) {
 	int mode;
 	switch(brightnessMode) {
-		case OFF_BRIGHTNESS_MODE: mode = 0; break;
-		case LOW_BRIGHTNESS_MODE: mode = 125; break;
-		case MEDIUM_BRIGHTNESS_MODE: mode = 126; break;
-		case FULL_BRIGHTNESS_MODE: mode = 127; break;
+		case ofxLaunchpadColor::OFF_BRIGHTNESS_MODE: mode = 0; break;
+		case ofxLaunchpadColor::LOW_BRIGHTNESS_MODE: mode = 125; break;
+		case ofxLaunchpadColor::MEDIUM_BRIGHTNESS_MODE: mode = 126; break;
+		case ofxLaunchpadColor::FULL_BRIGHTNESS_MODE: mode = 127; break;
 	}
+	buffer.clear();
+	buffer.resize(80, ofxLaunchpadColor(mode));
 	midiOut.sendControlChange(1, 0, mode);
 }
 
