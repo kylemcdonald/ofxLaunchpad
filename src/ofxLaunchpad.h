@@ -15,13 +15,16 @@
 #include "ofxLaunchpadListener.h"
 #include "ofxLaunchpadColor.h"
 
-class ofxLaunchpad : public ofxMidiListener {
+class ofxLaunchpad : public ofxMidiListener, public ofBaseDraws {
 public:	
 	virtual void setup(int port, ofxLaunchpadListener* listener = NULL);
 	void addListener(ofxLaunchpadListener* listener);
 	void removeListener(ofxLaunchpadListener* listener);
 	
-	void draw(int x, int y, int size) const;
+	void draw(float x, float y, float width, float height);
+	void draw(float x, float y);
+	float getWidth();
+	float getHeight();
 	
 	void begin();
 	void end();

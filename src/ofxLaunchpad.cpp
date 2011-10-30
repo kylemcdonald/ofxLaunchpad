@@ -36,13 +36,13 @@ ofColor boostBrightness(ofColor color) {
 	return color / 2 + ofColor(128);
 }
 
-void ofxLaunchpad::draw(int x, int y, int size) const {
+void ofxLaunchpad::draw(float x, float y, float width, float height) {
 	ofPushStyle();
 	ofPushMatrix();
-	ofSetLineWidth(size / (cols * 10));
+	ofSetCircleResolution(12);
+	ofSetLineWidth(MIN(width, height) / (cols * 10));
 	ofTranslate(x, y);
-	float scale = size / cols;
-	ofScale(scale, scale);
+	ofScale(width / cols, height / cols);
 	
 	ofColor outlineColor(64);
 	
@@ -101,6 +101,18 @@ void ofxLaunchpad::draw(int x, int y, int size) const {
 	
 	ofPopMatrix();
 	ofPopStyle();
+}
+
+void ofxLaunchpad::draw(float x, float y) {
+	draw(x, y, getWidth(), getHeight());
+}
+
+float ofxLaunchpad::getWidth() {
+	return 32 * cols;
+}
+
+float ofxLaunchpad::getHeight() {
+	return 32 * cols;
 }
 
 void ofxLaunchpad::begin() {
