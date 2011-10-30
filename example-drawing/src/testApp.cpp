@@ -27,5 +27,5 @@ void testApp::update(){
 }
 
 void testApp::draw(){
-	launchpad.draw(0, 0, 480);
+	launchpad.draw(0, 0);
 }

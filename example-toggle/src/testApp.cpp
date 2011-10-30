@@ -11,7 +11,7 @@ void testApp::update(){
 
 void testApp::draw(){
 	ofBackground(0);
-	launchpad.draw(0, 0, ofGetWidth());
+	launchpad.draw(0, 0);
 }
 
 void testApp::mousePressed(int x, int y, int button) {
