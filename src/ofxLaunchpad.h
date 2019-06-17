@@ -37,7 +37,7 @@ public:
 	void setBufferingMode(bool copy, bool flash, int update, int display); // also resets the flash timer
 	void setAll(ofxLaunchpadColor::BrightnessMode brightnessMode = ofxLaunchpadColor::OFF_BRIGHTNESS_MODE); // resets all other data
 	
-	void newMidiMessage(ofxMidiEventArgs& args);
+	void newMidiMessage(ofxMidiMessage& args) override;
 	ofEvent<ButtonEvent> automapButtonEvent, gridButtonEvent;
 	
 protected:

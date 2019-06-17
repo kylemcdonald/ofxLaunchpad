@@ -247,19 +247,19 @@ void ofxLaunchpad::setDutyCycle(int numerator, int denominator) {
 	}
 }
 
-void ofxLaunchpad::newMidiMessage(ofxMidiEventArgs& args) {
-	int pressed = args.byteTwo > 0;
+void ofxLaunchpad::newMidiMessage(ofxMidiMessage& args) {
+	int pressed = args.velocity > 0;
 	int grid = args.status == MIDI_NOTE_ON;
 	if(grid) {
-		int row = (args.byteOne >> 4) & rowMask;
-		int col = (args.byteOne >> 0) & colMask;
+		int row = (args.pitch >> 4) & rowMask;
+		int col = (args.pitch >> 0) & colMask;
 		int i = row * cols + col;
 		ButtonEvent event(col, row, pressed, &lastEvent[i]);
 		ofNotifyEvent(gridButtonEvent, event);
 		lastEvent[i] = event;
 	} else {
 		int row = automapRow;
-		int col = (args.byteOne - automapBegin) & colMask;
+		int col = (args.pitch - automapBegin) & colMask;
 		int i = row * cols + col;
 		ButtonEvent event(col, row, pressed, &lastEvent[i]);
 		ofNotifyEvent(automapButtonEvent, event);
