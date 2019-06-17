@@ -36,7 +36,7 @@ ofColor boostBrightness(ofColor color) {
 	return color / 2 + ofColor(128);
 }
 
-void ofxLaunchpad::draw(float x, float y, float width, float height) {
+void ofxLaunchpad::draw(float x, float y, float width, float height) const {
 	ofPushStyle();
 	ofPushMatrix();
 	ofSetCircleResolution(12);
@@ -103,15 +103,15 @@ void ofxLaunchpad::draw(float x, float y, float width, float height) {
 	ofPopStyle();
 }
 
-void ofxLaunchpad::draw(float x, float y) {
+void ofxLaunchpad::draw(float x, float y) const {
 	draw(x, y, getWidth(), getHeight());
 }
 
-float ofxLaunchpad::getWidth() {
+float ofxLaunchpad::getWidth() const {
 	return 32 * cols;
 }
 
-float ofxLaunchpad::getHeight() {
+float ofxLaunchpad::getHeight() const {
 	return 32 * cols;
 }
 

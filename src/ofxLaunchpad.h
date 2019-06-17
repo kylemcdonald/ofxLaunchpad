@@ -21,10 +21,10 @@ public:
 	void addListener(ofxLaunchpadListener* listener);
 	void removeListener(ofxLaunchpadListener* listener);
 	
-	void draw(float x, float y, float width, float height);
-	void draw(float x, float y);
-	float getWidth();
-	float getHeight();
+	void draw(float x, float y, float width, float height) const override;
+	void draw(float x, float y) const override;
+	float getWidth() const override;
+	float getHeight() const override;
 	
 	void begin();
 	void end();
