@@ -48,20 +48,20 @@ void ofxLaunchpad::draw(float x, float y, float width, float height) const {
 	
 	ofFill();
 	ofSetColor(0);
-	ofRect(0, 0, 9, 9);
+	ofDrawRectangle(0, 0, 9, 9);
 	ofNoFill();
 	ofSetColor(outlineColor);
-	ofRect(0, 0, 9, 9);
+	ofDrawRectangle(0, 0, 9, 9);
 	
 	ofPushMatrix();
 	ofTranslate(.5, .5);
 	for(int col = 0; col < 8; col++) {
 		ofFill();
 		ofSetColor(boostBrightness(getLedGrid(col, automapRow)));
-		ofCircle(col, 0, .3);
+		ofDrawCircle(col, 0, .3);
 		ofNoFill();
 		ofSetColor(outlineColor);
-		ofCircle(col, 0, .3);
+		ofDrawCircle(col, 0, .3);
 	}
 	ofPopMatrix();
 	
@@ -72,10 +72,10 @@ void ofxLaunchpad::draw(float x, float y, float width, float height) const {
 			ofTranslate(col, row);
 			ofFill();
 			ofSetColor(boostBrightness(getLedGrid(col, row)));
-			ofRect(.1, .1, .8, .8);
+			ofDrawRectangle(.1, .1, .8, .8);
 			ofNoFill();
 			ofSetColor(outlineColor);
-			ofRect(.1, .1, .8, .8);
+			ofDrawRectangle(.1, .1, .8, .8);
 			ofPopMatrix();
 		}
 	}
@@ -85,7 +85,7 @@ void ofxLaunchpad::draw(float x, float y, float width, float height) const {
 	ofRotate(45);
 	ofFill();
 	ofSetColor(0);
-	ofRect(-.25, -.25, .5, .5);
+	ofDrawRectangle(-.25, -.25, .5, .5);
 	ofPopMatrix();
 	
 	ofTranslate(8, 0);
@@ -93,10 +93,10 @@ void ofxLaunchpad::draw(float x, float y, float width, float height) const {
 	for(int row = 0; row < 8; row++) {
 		ofFill();
 		ofSetColor(boostBrightness(getLedGrid(8, row)));
-		ofCircle(0, row, .3);
+		ofDrawCircle(0, row, .3);
 		ofNoFill();
 		ofSetColor(outlineColor);
-		ofCircle(0, row, .3);
+		ofDrawCircle(0, row, .3);
 	}
 	
 	ofPopMatrix();
