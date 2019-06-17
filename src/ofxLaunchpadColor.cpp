@@ -39,7 +39,7 @@ ofxLaunchpadColor::operator ofColor() const {
 
 int ofxLaunchpadColor::getMidi() const {
 	static const int colorMask = 3;
-	return 
+	return
 		((green & colorMask) << 4) |
 		((clear ? 1 : 0) << 3) |
 		((copy ? 1 : 0) << 2) |

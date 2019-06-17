@@ -29,7 +29,7 @@ void testApp::dragChange(int x, int y, int button, int reset) {
 	if(y == -1) {
 		y = 8;
 	}
-	
+
 	if(reset) {
 		curColor = launchpad.getLedGrid(x, y).isOn() ? ofColor::black : ofColor::yellow;
 	}

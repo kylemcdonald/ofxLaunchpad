@@ -5,7 +5,7 @@ void testApp::setup(){
 	// updating. it can handle 400 messages per second, and a full grid update
 	// is 8x8/2 + 1 = 33 messages. 400 / 33 = 12 fps absolute max.
 	ofSetFrameRate(10);
-	ofSetVerticalSync(true);	
+	ofSetVerticalSync(true);
 	launchpad.setup(1);
 }
 

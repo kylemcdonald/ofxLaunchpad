@@ -13,22 +13,22 @@ const int colMask = 15;
 const int cols = 9;
 const int automapRow = 8;
 const int totalButtons = 80;
-	
+
 void ofxLaunchpad::setup(int port, ofxLaunchpadListener* listener) {
 	midiOut.listPorts();
 	midiOut.openPort(port);
-	
+
 	setMappingMode();
 	setAll();
-	
+
 	midiIn.listPorts();
 	midiIn.openPort(port);
 	midiIn.addListener(this);
-	
+
 	if(listener != NULL) {
 		addListener(listener);
 	}
-	
+
 	fbo.allocate(256, 256);
 }
 
@@ -43,16 +43,16 @@ void ofxLaunchpad::draw(float x, float y, float width, float height) const {
 	ofSetLineWidth(MIN(width, height) / (cols * 10));
 	ofTranslate(x, y);
 	ofScale(width / cols, height / cols);
-	
+
 	ofColor outlineColor(64);
-	
+
 	ofFill();
 	ofSetColor(0);
 	ofDrawRectangle(0, 0, 9, 9);
 	ofNoFill();
 	ofSetColor(outlineColor);
 	ofDrawRectangle(0, 0, 9, 9);
-	
+
 	ofPushMatrix();
 	ofTranslate(.5, .5);
 	for(int col = 0; col < 8; col++) {
@@ -64,7 +64,7 @@ void ofxLaunchpad::draw(float x, float y, float width, float height) const {
 		ofDrawCircle(col, 0, .3);
 	}
 	ofPopMatrix();
-	
+
 	ofTranslate(0, 1);
 	for(int row = 0; row < 8; row++) {
 		for(int col = 0; col < 8; col++) {
@@ -79,7 +79,7 @@ void ofxLaunchpad::draw(float x, float y, float width, float height) const {
 			ofPopMatrix();
 		}
 	}
-	
+
 	ofPushMatrix();
 	ofTranslate(4, 4);
 	ofRotate(45);
@@ -87,7 +87,7 @@ void ofxLaunchpad::draw(float x, float y, float width, float height) const {
 	ofSetColor(0);
 	ofDrawRectangle(-.25, -.25, .5, .5);
 	ofPopMatrix();
-	
+
 	ofTranslate(8, 0);
 	ofTranslate(.5, .5);
 	for(int row = 0; row < 8; row++) {
@@ -98,7 +98,7 @@ void ofxLaunchpad::draw(float x, float y, float width, float height) const {
 		ofSetColor(outlineColor);
 		ofDrawCircle(0, row, .3);
 	}
-	
+
 	ofPopMatrix();
 	ofPopStyle();
 }
@@ -118,7 +118,7 @@ float ofxLaunchpad::getHeight() const {
 void ofxLaunchpad::begin() {
 	fbo.begin();
 	ofPushStyle();
-	ofPushMatrix();	
+	ofPushMatrix();
 }
 
 void ofxLaunchpad::end() {
@@ -224,13 +224,13 @@ void ofxLaunchpad::setAll(ofxLaunchpadColor::BrightnessMode brightnessMode) {
 		case ofxLaunchpadColor::MEDIUM_BRIGHTNESS_MODE: mode = 126; break;
 		case ofxLaunchpadColor::FULL_BRIGHTNESS_MODE: mode = 127; break;
 	}
-	
+
 	buffer.clear();
 	buffer.resize(totalButtons, ofxLaunchpadColor(mode));
-	
+
 	lastEvent.clear();
 	lastEvent.resize(totalButtons);
-	
+
 	midiOut.sendControlChange(1, 0, mode);
 }
 

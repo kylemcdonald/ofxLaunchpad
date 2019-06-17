@@ -9,6 +9,6 @@ public:
 	void update();
 	void draw();
 	void launchpadDraw();
-	
+
 	ofxLaunchpad launchpad;
 };

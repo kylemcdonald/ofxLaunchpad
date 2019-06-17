@@ -8,9 +8,9 @@ public:
 	void setup();
 	void update();
 	void draw();
-	
+
 	void keyPressed(int key);
-	
+
 	ofxLaunchpad launchpad;
 	ofVideoGrabber camera;
 	ofImage pix;
