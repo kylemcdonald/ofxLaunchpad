@@ -3,7 +3,7 @@
 void ofApp::setup(){
 	ofSetVerticalSync(true);
 	ofBackground(255);
-	launchpad.setup(1);
+	launchpad.setup(0);
 }
 
 void ofApp::update(){

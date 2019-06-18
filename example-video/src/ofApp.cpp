@@ -7,7 +7,7 @@ void ofApp::setup(){
 	ofSetFrameRate(10);
 	ofSetVerticalSync(true);
 	ofBackground(255);
-	launchpad.setup(1);
+	launchpad.setup(0);
 	camera.setup(640, 480);
 	useColor = false;
 }

@@ -6,7 +6,7 @@ void ofApp::setup(){
 	// is 8x8/2 + 1 = 33 messages. 400 / 33 = 12 fps absolute max.
 	ofSetFrameRate(10);
 	ofSetVerticalSync(true);
-	launchpad.setup(1);
+	launchpad.setup(0);
 }
 
 void ofApp::launchpadDraw() {
