@@ -1,4 +1,5 @@
 #include "ofxLaunchpadColor.h"
+#include "ofMath.h"
 
 ofxLaunchpadColor::ofxLaunchpadColor(int red, int green, bool clear, bool copy)
 :red(red)

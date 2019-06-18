@@ -82,7 +82,7 @@ void ofxLaunchpad::draw(float x, float y, float width, float height) const {
 
 	ofPushMatrix();
 	ofTranslate(4, 4);
-	ofRotate(45);
+	ofRotateDeg(45);
 	ofFill();
 	ofSetColor(0);
 	ofDrawRectangle(-.25, -.25, .5, .5);
