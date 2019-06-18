@@ -15,13 +15,13 @@ const int automapRow = 8;
 const int totalButtons = 80;
 
 void ofxLaunchpad::setup(int port, ofxLaunchpadListener* listener) {
-	midiOut.listPorts();
+	midiOut.listOutPorts();
 	midiOut.openPort(port);
 
 	setMappingMode();
 	setAll();
 
-	midiIn.listPorts();
+	midiIn.listInPorts();
 	midiIn.openPort(port);
 	midiIn.addListener(this);
 
