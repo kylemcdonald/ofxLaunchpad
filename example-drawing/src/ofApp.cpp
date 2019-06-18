@@ -14,10 +14,10 @@ void ofApp::launchpadDraw() {
 	float r = ofMap(sin(ofGetElapsedTimef() * 4), -1, 1, 0, 4);
 	ofFill();
 	ofSetColor(ofColor::green);
-	ofCircle(4, 4, r);
+	ofDrawCircle(4, 4, r);
 	ofNoFill();
 	ofSetColor(ofColor::red);
-	ofCircle(4, 4, r);
+	ofDrawCircle(4, 4, r);
 }
 
 void ofApp::update(){
