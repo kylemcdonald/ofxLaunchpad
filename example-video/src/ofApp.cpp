@@ -8,14 +8,14 @@ void ofApp::setup(){
 	ofSetVerticalSync(true);
 	ofBackground(255);
 	launchpad.setup(1);
-	camera.initGrabber(640, 480);
+	camera.setup(640, 480);
 	useColor = false;
 }
 
 void ofApp::update(){
 	camera.update();
 	if(camera.isFrameNew()) {
-		pix = camera.getPixelsRef();
+		pix = camera.getPixels();
 		pix.crop(80, 0, 480, 480);
 		pix.resize(8, 8);
 		pix.update();
@@ -23,12 +23,12 @@ void ofApp::update(){
 			pix.setImageType(OF_IMAGE_GRAYSCALE);
 			pix.setImageType(OF_IMAGE_COLOR);
 		}
-		launchpad.set(pix.getPixelsRef());
+		launchpad.set(pix.getPixels());
 	}
 }
 
 void ofApp::draw(){
-	ofSetMinMagFilters(GL_NEAREST, GL_NEAREST);
+	camera.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 	ofScale(480 / 8, 480 / 8);
 	pix.draw(0, 0);
 }
