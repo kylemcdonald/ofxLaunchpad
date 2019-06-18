@@ -1,28 +1,28 @@
-#include "testApp.h"
+#include "ofApp.h"
 
-void testApp::setup(){
+void ofApp::setup(){
 	ofSetVerticalSync(true);
 	ofBackground(255);
 	launchpad.setup(1);
 }
 
-void testApp::update(){
+void ofApp::update(){
 }
 
-void testApp::draw(){
+void ofApp::draw(){
 	ofBackground(0);
 	launchpad.draw(0, 0);
 }
 
-void testApp::mousePressed(int x, int y, int button) {
+void ofApp::mousePressed(int x, int y, int button) {
 	dragChange(x, y, button, true);
 }
 
-void testApp::mouseDragged(int x, int y, int button) {
+void ofApp::mouseDragged(int x, int y, int button) {
 	dragChange(x, y, button, false);
 }
 
-void testApp::dragChange(int x, int y, int button, int reset) {
+void ofApp::dragChange(int x, int y, int button, int reset) {
 	// remap from screen space to launchpad space
 	x = round(ofMap(x, 0, ofGetWidth(), -.5, 8.5));
 	y = round(ofMap(y, 0, ofGetHeight(), -1.5, 7.5));

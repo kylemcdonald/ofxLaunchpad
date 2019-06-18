@@ -1,6 +1,6 @@
-#include "testApp.h"
+#include "ofApp.h"
 
-void testApp::setup(){
+void ofApp::setup(){
 	// 10 fps is important, otherwise we can overload the device and it will stop
 	// updating. it can handle 400 messages per second, and a full grid update
 	// is 8x8/2 + 1 = 33 messages. 400 / 33 = 12 fps absolute max.
@@ -9,7 +9,7 @@ void testApp::setup(){
 	launchpad.setup(1);
 }
 
-void testApp::launchpadDraw() {
+void ofApp::launchpadDraw() {
 	ofClear(0, 255);
 	float r = ofMap(sin(ofGetElapsedTimef() * 4), -1, 1, 0, 4);
 	ofFill();
@@ -20,12 +20,12 @@ void testApp::launchpadDraw() {
 	ofCircle(4, 4, r);
 }
 
-void testApp::update(){
+void ofApp::update(){
 	launchpad.begin();
 	launchpadDraw();
 	launchpad.end();
 }
 
-void testApp::draw(){
+void ofApp::draw(){
 	launchpad.draw(0, 0);
 }

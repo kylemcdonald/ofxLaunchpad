@@ -1,6 +1,6 @@
-#include "testApp.h"
+#include "ofApp.h"
 
-void testApp::setup(){
+void ofApp::setup(){
 	// 10 fps is important, otherwise we can overload the device and it will stop
 	// updating. it can handle 400 messages per second, and a full grid update
 	// is 8x8/2 + 1 = 33 messages. 400 / 33 = 12 fps absolute max.
@@ -12,7 +12,7 @@ void testApp::setup(){
 	useColor = false;
 }
 
-void testApp::update(){
+void ofApp::update(){
 	camera.update();
 	if(camera.isFrameNew()) {
 		pix = camera.getPixelsRef();
@@ -27,13 +27,13 @@ void testApp::update(){
 	}
 }
 
-void testApp::draw(){
+void ofApp::draw(){
 	ofSetMinMagFilters(GL_NEAREST, GL_NEAREST);
 	ofScale(480 / 8, 480 / 8);
 	pix.draw(0, 0);
 }
 
-void testApp::keyPressed(int key) {
+void ofApp::keyPressed(int key) {
 	if(key == ' ') {
 		useColor = !useColor;
 	}

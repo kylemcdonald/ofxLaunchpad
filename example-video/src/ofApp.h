@@ -3,12 +3,16 @@
 #include "ofMain.h"
 #include "ofxLaunchpad.h"
 
-class testApp : public ofBaseApp {
+class ofApp : public ofBaseApp {
 public:
 	void setup();
 	void update();
 	void draw();
-	void launchpadDraw();
+
+	void keyPressed(int key);
 
 	ofxLaunchpad launchpad;
+	ofVideoGrabber camera;
+	ofImage pix;
+	bool useColor;
 };
