@@ -13,22 +13,22 @@ const int colMask = 15;
 const int cols = 9;
 const int automapRow = 8;
 const int totalButtons = 80;
-	
+
 void ofxLaunchpad::setup(int port, ofxLaunchpadListener* listener) {
-	midiOut.listPorts();
+	midiOut.listOutPorts();
 	midiOut.openPort(port);
-	
+
 	setMappingMode();
 	setAll();
-	
-	midiIn.listPorts();
+
+	midiIn.listInPorts();
 	midiIn.openPort(port);
 	midiIn.addListener(this);
-	
+
 	if(listener != NULL) {
 		addListener(listener);
 	}
-	
+
 	fbo.allocate(256, 256);
 }
 
@@ -36,35 +36,35 @@ ofColor boostBrightness(ofColor color) {
 	return color / 2 + ofColor(128);
 }
 
-void ofxLaunchpad::draw(float x, float y, float width, float height) {
+void ofxLaunchpad::draw(float x, float y, float width, float height) const {
 	ofPushStyle();
 	ofPushMatrix();
 	ofSetCircleResolution(12);
 	ofSetLineWidth(MIN(width, height) / (cols * 10));
 	ofTranslate(x, y);
 	ofScale(width / cols, height / cols);
-	
+
 	ofColor outlineColor(64);
-	
+
 	ofFill();
 	ofSetColor(0);
-	ofRect(0, 0, 9, 9);
+	ofDrawRectangle(0, 0, 9, 9);
 	ofNoFill();
 	ofSetColor(outlineColor);
-	ofRect(0, 0, 9, 9);
-	
+	ofDrawRectangle(0, 0, 9, 9);
+
 	ofPushMatrix();
 	ofTranslate(.5, .5);
 	for(int col = 0; col < 8; col++) {
 		ofFill();
 		ofSetColor(boostBrightness(getLedGrid(col, automapRow)));
-		ofCircle(col, 0, .3);
+		ofDrawCircle(col, 0, .3);
 		ofNoFill();
 		ofSetColor(outlineColor);
-		ofCircle(col, 0, .3);
+		ofDrawCircle(col, 0, .3);
 	}
 	ofPopMatrix();
-	
+
 	ofTranslate(0, 1);
 	for(int row = 0; row < 8; row++) {
 		for(int col = 0; col < 8; col++) {
@@ -72,53 +72,53 @@ void ofxLaunchpad::draw(float x, float y, float width, float height) {
 			ofTranslate(col, row);
 			ofFill();
 			ofSetColor(boostBrightness(getLedGrid(col, row)));
-			ofRect(.1, .1, .8, .8);
+			ofDrawRectangle(.1, .1, .8, .8);
 			ofNoFill();
 			ofSetColor(outlineColor);
-			ofRect(.1, .1, .8, .8);
+			ofDrawRectangle(.1, .1, .8, .8);
 			ofPopMatrix();
 		}
 	}
-	
+
 	ofPushMatrix();
 	ofTranslate(4, 4);
-	ofRotate(45);
+	ofRotateDeg(45);
 	ofFill();
 	ofSetColor(0);
-	ofRect(-.25, -.25, .5, .5);
+	ofDrawRectangle(-.25, -.25, .5, .5);
 	ofPopMatrix();
-	
+
 	ofTranslate(8, 0);
 	ofTranslate(.5, .5);
 	for(int row = 0; row < 8; row++) {
 		ofFill();
 		ofSetColor(boostBrightness(getLedGrid(8, row)));
-		ofCircle(0, row, .3);
+		ofDrawCircle(0, row, .3);
 		ofNoFill();
 		ofSetColor(outlineColor);
-		ofCircle(0, row, .3);
+		ofDrawCircle(0, row, .3);
 	}
-	
+
 	ofPopMatrix();
 	ofPopStyle();
 }
 
-void ofxLaunchpad::draw(float x, float y) {
+void ofxLaunchpad::draw(float x, float y) const {
 	draw(x, y, getWidth(), getHeight());
 }
 
-float ofxLaunchpad::getWidth() {
+float ofxLaunchpad::getWidth() const {
 	return 32 * cols;
 }
 
-float ofxLaunchpad::getHeight() {
+float ofxLaunchpad::getHeight() const {
 	return 32 * cols;
 }
 
 void ofxLaunchpad::begin() {
 	fbo.begin();
 	ofPushStyle();
-	ofPushMatrix();	
+	ofPushMatrix();
 }
 
 void ofxLaunchpad::end() {
@@ -224,13 +224,13 @@ void ofxLaunchpad::setAll(ofxLaunchpadColor::BrightnessMode brightnessMode) {
 		case ofxLaunchpadColor::MEDIUM_BRIGHTNESS_MODE: mode = 126; break;
 		case ofxLaunchpadColor::FULL_BRIGHTNESS_MODE: mode = 127; break;
 	}
-	
+
 	buffer.clear();
 	buffer.resize(totalButtons, ofxLaunchpadColor(mode));
-	
+
 	lastEvent.clear();
 	lastEvent.resize(totalButtons);
-	
+
 	midiOut.sendControlChange(1, 0, mode);
 }
 
@@ -247,19 +247,19 @@ void ofxLaunchpad::setDutyCycle(int numerator, int denominator) {
 	}
 }
 
-void ofxLaunchpad::newMidiMessage(ofxMidiEventArgs& args) {
-	int pressed = args.byteTwo > 0;
+void ofxLaunchpad::newMidiMessage(ofxMidiMessage& args) {
+	int pressed = args.velocity > 0;
 	int grid = args.status == MIDI_NOTE_ON;
 	if(grid) {
-		int row = (args.byteOne >> 4) & rowMask;
-		int col = (args.byteOne >> 0) & colMask;
+		int row = (args.pitch >> 4) & rowMask;
+		int col = (args.pitch >> 0) & colMask;
 		int i = row * cols + col;
 		ButtonEvent event(col, row, pressed, &lastEvent[i]);
 		ofNotifyEvent(gridButtonEvent, event);
 		lastEvent[i] = event;
 	} else {
 		int row = automapRow;
-		int col = (args.byteOne - automapBegin) & colMask;
+		int col = (args.pitch - automapBegin) & colMask;
 		int i = row * cols + col;
 		ButtonEvent event(col, row, pressed, &lastEvent[i]);
 		ofNotifyEvent(automapButtonEvent, event);

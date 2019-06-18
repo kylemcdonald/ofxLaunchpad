@@ -25,10 +25,10 @@ public:
 	virtual void automapButtonReleased(int col) {}
 	virtual void gridButtonPressed(int col, int row) {}
 	virtual void gridButtonReleased(int col, int row) {}
-	
+
 	// this is a general version of the four methods above. automap is row 8.
 	virtual void launchpadEvent(ButtonEvent event) {}
-	
+
 	// these methods handle the events for you
 	virtual void automapButton(ButtonEvent& buttonEvent) {
 		if(buttonEvent.pressed) {

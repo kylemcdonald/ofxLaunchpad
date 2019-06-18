@@ -1,4 +1,5 @@
 #include "ofxLaunchpadColor.h"
+#include "ofMath.h"
 
 ofxLaunchpadColor::ofxLaunchpadColor(int red, int green, bool clear, bool copy)
 :red(red)
@@ -39,7 +40,7 @@ ofxLaunchpadColor::operator ofColor() const {
 
 int ofxLaunchpadColor::getMidi() const {
 	static const int colorMask = 3;
-	return 
+	return
 		((green & colorMask) << 4) |
 		((clear ? 1 : 0) << 3) |
 		((copy ? 1 : 0) << 2) |
